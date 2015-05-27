@@ -1,0 +1,11 @@
+{
+    "name": "yannlescouarnec/exercice-cms",
+    "description": "petit exercice de POO",
+    "authors": [
+        {
+            "name": "Ikimasoft",
+            "email": "yann@ikimasoft.fr"
+        }
+    ],
+    "require": {}
+}
