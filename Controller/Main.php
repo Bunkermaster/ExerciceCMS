@@ -15,6 +15,7 @@ class Main
 {
     private $route = [
         'viewPage' => [ 'controller' => 'contentController' , 'method' => 'viewPageAction' ],
+        'listPages' => [ 'controller' => 'contentController' , 'method' => 'listAction' ],
     ];
 
     public function __construct( )
