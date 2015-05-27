@@ -19,11 +19,13 @@ class ContentController {
      */
     private $contentRepository;
 
-    public function __construct( ContentRepository $contentRepository ){
+    public function __construct( ContentRepository $contentRepository )
+    {
         $this->contentRepository = $contentRepository;
     }
 
-    public function viewPageAction( ){
+    public function viewPageAction( )
+    {
         $id = $_GET['id'];
         $entity = $this->contentRepository->getOneContent( $id );
         if(!($entity instanceof ContentEntity)){
@@ -31,6 +33,12 @@ class ContentController {
             throw new \Exception( 'OMGNODATA' );
         }
         include( 'View/ViewOnePage.php' );
+    }
+
+    public function listAction()
+    {
+        $entityCollection = $this->contentRepository->listContent();
+        include( 'View/ListPages.php' );
     }
 
 }
