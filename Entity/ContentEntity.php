@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yannlescouarnec
- * Date: 27/05/15
- * Time: 11:28
-*/
-
 namespace Entity;
-
 
 class ContentEntity
 {
