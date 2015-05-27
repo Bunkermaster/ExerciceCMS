@@ -30,11 +30,12 @@ class Main
         // recuperation de la route $_REQUEST['p']
         if( isset( $_REQUEST['p'] ) && isset( $this->route[$_REQUEST['p']] )){
             // appel le controller
-//            call_user_func( $this->route[$_REQUEST['p']]['controller'].'->'.$this->route[$_REQUEST['p']]['method'] );
+            $controllerName = $this->route[$_REQUEST['p']]['controller'];
+            $methodName = $this->route[$_REQUEST['p']]['method'];
+            $$controllerName->$methodName();
         } else {
             throw new \Exception( 'Le caca des canards c\'est caca' );
         }
-        $contentController->viewPageAction(  );
     }
 
 }

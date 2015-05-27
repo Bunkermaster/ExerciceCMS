@@ -9,6 +9,7 @@
 namespace Controller;
 
 
+use Entity\ContentEntity;
 use Repository\ContentRepository;
 
 class ContentController {
@@ -25,6 +26,10 @@ class ContentController {
     public function viewPageAction( ){
         $id = $_GET['id'];
         $entity = $this->contentRepository->getOneContent( $id );
+        if(!($entity instanceof ContentEntity)){
+//        if($entity === false){
+            throw new \Exception( 'OMGNODATA' );
+        }
         include( 'View/ViewOnePage.php' );
     }
 

@@ -31,6 +31,9 @@ class ContentRepository
         if(!$pdoStmt->execute()){
             return false;
         }
+        if( $pdoStmt->rowCount() === 0 ){
+            return false;
+        }
         $result = $pdoStmt->fetchObject();
         $entity = new ContentEntity();
         $entity->setId( $result->id );
