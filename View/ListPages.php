@@ -12,8 +12,6 @@
         <strong><?php echo $entity->getHeaderTitle();?></strong><br />
         <?php echo $entity->getBody();?><br />
         <a href="index.php?p=viewPage&id=<?php echo $entity->getId();?>">View page</a>
-
-
     </li>
     <?php endforeach;?>
 </ul>
