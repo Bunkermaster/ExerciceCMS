@@ -32,10 +32,10 @@ class ContentController {
 //        if($entity === false){
             throw new \Exception( 'OMGNODATA' );
         }
-        ob_start(  );
+//        ob_start(  );
         include( 'View/ViewOnePage.php' );
         $output = ob_get_clean();
-        var_dump($output);
+        echo $output;
     }
 
     public function listAction()
