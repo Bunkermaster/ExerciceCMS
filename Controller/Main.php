@@ -17,9 +17,13 @@ class Main
      * @var array
      */
     private $route = [
-        'viewPage' => [ 'controller' => 'contentController' , 'method' => 'viewPageAction' ],
+        'viewPageJson' => [ 'controller' => 'contentController' , 'method' => 'viewPageJsonAction' , 'json' => true ],
+        'viewPage' => [ 'controller' => 'contentController' , 'method' => 'viewPageAction'],
         'listPages' => [ 'controller' => 'contentController' , 'method' => 'listAction' ],
     ];
+    /**
+     * @var string
+     */
     private $defaultRoute = 'listPages';
 
     /**
@@ -45,12 +49,37 @@ class Main
             $controllerName = $this->route[$this->defaultRoute]['controller'];
             $methodName     = $this->route[$this->defaultRoute]['method'];
         }
-        $$controllerName->$methodName();
+        $body = $$controllerName->$methodName();
+        // generation de la page en HTML ou de la sortie en JSON
+        if( isset( $this->route[$_REQUEST['p']]['json'] ) && $this->route[$_REQUEST['p']]['json'] === true ){
+            echo $body;
+        } else {
+            echo $this->outputHeader().$body.$this->outputFooter();
+        }
     }
 
+    /**
+     * @return string
+     */
     private function outputHeader(){
+        return $this->outputPart( 'header' );
+    }
+
+    /**
+     * @return string
+     */
+    private function outputFooter(){
+        return $this->outputPart( 'footer' );
+    }
+
+    /**
+     * @param $part
+     *
+     * @return string
+     */
+    private function outputPart( $part ){
         ob_start(  );
-        include( 'View/header.php' );
+        include( 'View/'.$part.'.php' );
         return ob_get_clean();
     }
 

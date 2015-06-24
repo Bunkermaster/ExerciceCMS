@@ -2,5 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?php echo $entity->getTitle()?></title>
+    <title>TAILLE TEUL</title>
 </head>
+<body>
+    header<br/>

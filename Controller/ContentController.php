@@ -35,7 +35,18 @@ class ContentController {
         ob_start(  );
         include( 'View/ViewOnePage.php' );
         $output = ob_get_clean();
-        var_dump($output);
+        return $output;
+    }
+
+    public function viewPageJsonAction( )
+    {
+        $id = $_GET['id'];
+        $entity = $this->contentRepository->getOneContent( $id );
+        if(!($entity instanceof ContentEntity)){
+            throw new \Exception( 'OMGNODATA' );
+        }
+        $output  = json_encode( [ "one"=>1 , "two"=>2 , "san"=>3 ] );
+        return $output;
     }
 
     public function listAction()
