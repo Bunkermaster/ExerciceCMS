@@ -27,6 +27,7 @@ class ContentController {
     public function viewPageAction( )
     {
         $id = $_GET['id'];
+        /** @var ContentEntity $entity */
         $entity = $this->contentRepository->getOneContent( $id );
         if(!($entity instanceof ContentEntity)){
 //        if($entity === false){
@@ -34,8 +35,9 @@ class ContentController {
         }
         ob_start(  );
         include( 'View/ViewOnePage.php' );
-        $output = ob_get_clean();
-        return $output;
+        $response = new Response();
+        $response->setBody(ob_get_clean())->setTitle($entity->getHeaderTitle());
+        return $response;
     }
 
     public function viewPageJsonAction( )
@@ -45,14 +47,19 @@ class ContentController {
         if(!($entity instanceof ContentEntity)){
             throw new \Exception( 'OMGNODATA' );
         }
-        $output  = json_encode( [ "one"=>1 , "two"=>2 , "san"=>3 ] );
-        return $output;
+        $response = new Response();
+        $response->setBody( json_encode( $entity ));
+        return $response;
     }
 
     public function listAction()
     {
         $entityCollection = $this->contentRepository->listContent();
+        ob_start(  );
         include( 'View/ListPages.php' );
+        $response = new Response();
+        $response->setBody(ob_get_clean())->setTitle( 'Liste des contenus' );
+        return $response;
     }
 
 }

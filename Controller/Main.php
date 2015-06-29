@@ -49,26 +49,33 @@ class Main
             $controllerName = $this->route[$this->defaultRoute]['controller'];
             $methodName     = $this->route[$this->defaultRoute]['method'];
         }
-        $body = $$controllerName->$methodName();
+        // le controller reponds avec un objet de type \Controller\Response qui contient toutes donnees necessaires
+        /** @var \Controller\Response $response */
+        $response = $$controllerName->$methodName();
+        if(!($response instanceof Response )){
+            throw new exception( 'Response dafuck' );
+        }
         // generation de la page en HTML ou de la sortie en JSON
-        if( isset( $this->route[$_REQUEST['p']]['json'] ) && $this->route[$_REQUEST['p']]['json'] === true ){
-            echo $body;
+        if( isset($_REQUEST['p'] ) && isset( $this->route[$_REQUEST['p']]['json'] ) && $this->route[$_REQUEST['p']]['json'] === true ){
+            echo $response->getBody();
         } else {
-            echo $this->outputHeader().$body.$this->outputFooter();
+            echo $this->outputHeader($response->getTitle()).$response->getBody().$this->outputFooter();
         }
     }
 
     /**
      * @return string
      */
-    private function outputHeader(){
-        return $this->outputPart( 'header' );
+    private function outputHeader( $title )
+    {
+        return $this->outputPart( 'header' , $title );
     }
 
     /**
      * @return string
      */
-    private function outputFooter(){
+    private function outputFooter()
+    {
         return $this->outputPart( 'footer' );
     }
 
@@ -77,7 +84,8 @@ class Main
      *
      * @return string
      */
-    private function outputPart( $part ){
+    private function outputPart( $part , $data = '' )
+    {
         ob_start(  );
         include( 'View/'.$part.'.php' );
         return ob_get_clean();

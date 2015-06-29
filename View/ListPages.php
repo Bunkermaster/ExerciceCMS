@@ -1,3 +1,4 @@
+<?php /** @var array $entityCollection */?>
 <!doctype html>
 <html lang="en">
 <head>
