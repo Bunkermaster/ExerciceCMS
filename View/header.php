@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TAILLE TEUL</title>
+    <title><?php echo $data;?></title>
 </head>
 <body>
     header<br/>
